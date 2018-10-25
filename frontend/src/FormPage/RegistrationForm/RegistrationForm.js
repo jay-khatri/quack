@@ -3,12 +3,13 @@ import { Form, Icon, Input, Button } from 'antd';
 
 const API_URL = process.env.API_URL;
 
-class App extends Component {
+class RegistrationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       response: "not loaded"
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   hasErrors(fieldsError) {
@@ -37,43 +38,38 @@ class App extends Component {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
-    const userNameError = isFieldTouched('userName') && getFieldError('userName');
-    const passwordError = isFieldTouched('password') && getFieldError('password');
+    const firstNameError = isFieldTouched('first_name') && getFieldError('first_name');
+    const lastNameError = isFieldTouched('last_name') && getFieldError('last_name');
+
     return (
-      <Form layout="inline" onSubmit={this.handleSubmit}>
+      <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item
-          validateStatus={userNameError ? 'error' : ''}
-          help={userNameError || ''}
+          validateStatus={firstNameError ? 'error' : ''}
+          help={firstNameError || ''}
         >
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+          {getFieldDecorator('first_name', {
+            rules: [{ required: true, message: 'Please input your first name!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="First Name" />
           )}
         </Form.Item>
         <Form.Item
-          validateStatus={passwordError ? 'error' : ''}
-          help={passwordError || ''}
+          validateStatus={lastNameError ? 'error' : ''}
+          help={lastNameError || ''}
         >
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+          {getFieldDecorator('last_name', {
+            rules: [{ required: true, message: 'Please input your last name!' }],
           })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Last Name" />
           )}
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={this.hasErrors(getFieldsError())}
-          >
-            Log in
-          </Button>
+          <Button type="primary" htmlType="submit">Submit</Button>
         </Form.Item>
       </Form>
     );
   }
 }
 
-export default Form.create()(App);
+export default Form.create()(RegistrationForm);
 
