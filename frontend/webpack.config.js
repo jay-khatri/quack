@@ -22,15 +22,8 @@ module.exports = {
         loaders: ["babel-loader"]
       },
       {
-        test: /\.scss$/,
-        loader: "style-loader!css-loader!sass-loader"
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: "url-loader",
-        options: {
-          limit: 10000
-        }
+        test: /\.css$/,
+        use:['style-loader','css-loader']
       }
     ]
   },
@@ -39,7 +32,7 @@ module.exports = {
   },
   output: {
     filename: "index.js",
-    path: path.join(__dirname, "../static")
+    path: path.join(__dirname, "/dist")
   },
   mode: dev ? "development" : "production",
   plugins: dev
